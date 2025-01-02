@@ -1,0 +1,10 @@
+aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 736449641773.dkr.ecr.us-east-1.amazonaws.com
+# Create ECR repository if you haven't already
+aws ecr create-repository --repository-name whisper
+
+# Build the Docker image
+docker build -t whisper .
+
+# Tag and push to ECR
+docker tag whisper:latest 736449641773.dkr.ecr.us-west-1.amazonaws.com/whisper:latest
+docker push 736449641773.dkr.ecr.us-west-1.amazonaws.com/whisper:latest
